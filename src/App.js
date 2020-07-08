@@ -1,34 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Select from './Select';
+import CountUp from 'react-countup';
 
 const App = () => {
     const [countries,setCountries]=useState();
     const [data,setData]=useState();
-    const [selectValue,setSelectValue]=useState('Pakistan');
+    const [global,setGlobal]=useState();
+    const [date,setDate]=useState();
+    const [selectValue,setSelectValue]=useState('Global');
 
     const handleSelect=(e)=>setSelectValue(e.target.value)
 
     useEffect(()=>{
         (async ()=>{
-            const DATA=(await axios.get('https://api.covid19api.com/summary')).data.Countries;
-            setCountries(DATA.map(c=>c.Country))
-            setData(DATA)
+            const DATA=(await axios.get('https://api.covid19api.com/summary')).data;
+            setCountries(DATA.Countries.map(c=>c.Country))
+            setData(DATA.Countries)
+            setGlobal(DATA.Global)
+            setDate(DATA.Date)
         })()
  
     },[])
 
     if (data){
         const INDEX=data.findIndex(i=>i.Country===selectValue);
-    var i=2;
-        var {TotalConfirmed,TotalRecovered,TotalDeaths}=data[INDEX];
+        if (selectValue!=='Global'){
+            var {TotalConfirmed,TotalRecovered,TotalDeaths}=data[INDEX];
+        }
+        else if (selectValue==='Global' && global){
+            var {TotalConfirmed,TotalRecovered,TotalDeaths}=global;
+        }
     }
 
     return (
         <>
-            <h1>Confirmed: {TotalConfirmed} </h1>
-            <h1>Recovered: {TotalRecovered} </h1>
-            <h1>Deaths: {TotalDeaths} </h1>
+            <h1>Confirmed: {TotalConfirmed && <CountUp end={TotalConfirmed} separator=',' />} </h1>
+            <h1>Recovered: {TotalRecovered && <CountUp end={TotalRecovered} separator=','/>} </h1>
+            <h1>Deaths: {TotalDeaths && <CountUp end={TotalDeaths} separator=',' duration={2}/>} </h1>
+            <h1>Last Updated: {new Date(date).toDateString()} </h1>
             <Select countries={countries?countries:['Loading....']} handleSelect={handleSelect} 
             selectValue={selectValue}/>
         </>
