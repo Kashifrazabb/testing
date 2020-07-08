@@ -37,7 +37,7 @@ const App = () => {
         <>
             <h1>Confirmed: {TotalConfirmed && <CountUp end={TotalConfirmed} separator=',' />} </h1>
             <h1>Recovered: {TotalRecovered && <CountUp end={TotalRecovered} separator=','/>} </h1>
-            <h1>Deaths: {TotalDeaths && <CountUp end={TotalDeaths} separator=',' duration={2}/>} </h1>
+            <h1>Deaths: {TotalDeaths && <CountUp end={TotalDeaths} separator=','/>} </h1>
             <h1>Last Updated: {date && new Date(date).toDateString()} </h1>
             <Select countries={countries?countries:['Loading....']} handleSelect={handleSelect} 
             selectValue={selectValue}/>
