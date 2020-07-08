@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Select = ({countries,global,selectValue,handleSelect}) => {
+const Select = ({countries,selectValue,handleSelect}) => {
     return (
         <div>
             <select onChange={handleSelect} value={selectValue}>
