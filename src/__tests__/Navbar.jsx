@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Navbar } from '../components/Navbar'
+import { Navbar } from '../components/navbar'
 
 import { findByTestAttr } from '../../utils/ShallowComp'
 
@@ -24,4 +24,5 @@ describe('Navbar Component', () => {
         const logo = findByTestAttr(component, 'logo')
         expect(logo.length).toBe(1)
     })
+
 })

@@ -1,3 +1,1 @@
-export const findByTestAttr = (comp, attr) => {
-    return comp.find(`[data-test='${attr}']`)
-}
+export const findByTestAttr = (comp, attr) => comp.find(`[data-test='${attr}']`)
